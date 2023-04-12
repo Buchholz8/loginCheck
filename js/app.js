@@ -1,25 +1,25 @@
-
-
-function login_process(details){
-    let username = document.querySelector(`#username`)
-let username_val = username[`value`]
-let password = document.querySelector(`#password`)
-let password_val = password[`value`]
+function sucess(response) {
+    Cookies.set(`token`, response[`data`][`token`])
+    window[`location`] = `/pages/home.html`
+}
+function failure(response) {
+    let reply_div = document.getElementById(`response_div`)
+    reply_div[`innerHTML`] = `Username or Password is incorrect`
+}
+function login_process(details) {
+    let email = document.querySelector(`#email`)
+    let email_val = email[`value`]
+    let password = document.querySelector(`#password`)
+    let password_val = password[`value`]
 
     axios.request({
         url: `https://reqres.in/api/login`,
         methode: `POST`,
         data: {
-            username: username_val,
+            email: email_val,
             password: password_val,
         }
     }).then(sucess).catch(failure)
 }
-function sucess(response){
-    Cookies.set(`tocken` , response[`data`][`token`])
-    window[`location`] = 
-}
-function failure(response){
-    let response = document.getElementById(`response_div`)
-    response[`innerHTML`] = `Username or Password in incorrect`
-}
+let login = document.getElementById(`cab`)
+login.addEventListener(`click` , login_process)
